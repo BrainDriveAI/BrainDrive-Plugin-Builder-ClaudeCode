@@ -1,4 +1,4 @@
-# BrainDrive Plugin Builder
+# BrainDrive Plugin Builder (Claude Code)
 
 **By BrainDrive**
 
