@@ -1,0 +1,22 @@
+# Plugin output
+plugin-test/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Node modules (if any examples)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.log

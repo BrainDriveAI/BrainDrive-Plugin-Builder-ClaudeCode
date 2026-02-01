@@ -1,0 +1,453 @@
+{
+  "validation_checklist": {
+    "phase": "pre-build",
+    "description": "Validation checks before building the plugin",
+    "checks": [
+      {
+        "id": "spec_name",
+        "name": "Plugin display name",
+        "category": "specification",
+        "rule": "1-100 characters, no special chars (!@#$%)",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "spec_slug",
+        "name": "Plugin slug format",
+        "category": "specification",
+        "rule": "Must be lowercase kebab-case (my-plugin)",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "spec_version",
+        "name": "Plugin version semver",
+        "category": "specification",
+        "rule": "Must be X.Y.Z format (1.0.0)",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "spec_description",
+        "name": "Plugin description",
+        "category": "specification",
+        "rule": "One sentence, < 100 chars",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "spec_category",
+        "name": "Plugin category",
+        "category": "specification",
+        "rule": "Must be from approved list",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "file_package_json",
+        "name": "package.json exists",
+        "category": "files",
+        "rule": "File must exist and be valid JSON",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "file_lifecycle_manager",
+        "name": "lifecycle_manager.py exists",
+        "category": "files",
+        "rule": "File must exist and be valid Python",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "file_webpack_config",
+        "name": "webpack.config.js exists",
+        "category": "files",
+        "rule": "File must exist and be valid JavaScript",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "file_tsconfig",
+        "name": "tsconfig.json exists",
+        "category": "files",
+        "rule": "File must exist and be valid JSON",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "file_src_index",
+        "name": "src/index.tsx exists",
+        "category": "files",
+        "rule": "Webpack entry point must exist",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "file_src_component",
+        "name": "Main component exists",
+        "category": "files",
+        "rule": "Must have src/{PluginName}.tsx",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "file_public",
+        "name": "public/ folder exists",
+        "category": "files",
+        "rule": "Must exist (even if empty)",
+        "severity": "warning",
+        "auto_fixable": true,
+        "auto_fix": "mkdir -p public"
+      },
+      {
+        "id": "manifest_name_match",
+        "name": "package.json name matches slug",
+        "category": "manifest",
+        "rule": "name should be kebab-case version of slug",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "manifest_version_match",
+        "name": "Versions match everywhere",
+        "category": "manifest",
+        "rule": "package.json version == lifecycle_manager.py version",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "manifest_slug_match",
+        "name": "Plugin slug matches scope",
+        "category": "manifest",
+        "rule": "plugin_slug PascalCase must match webpack scope",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "manifest_bundle_location",
+        "name": "Bundle location correct",
+        "category": "manifest",
+        "rule": "Must be exactly 'dist/remoteEntry.js'",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "manifest_react_dependency",
+        "name": "React dependency present",
+        "category": "manifest",
+        "rule": "React ^18.2.0 must be in dependencies",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "manifest_no_secrets",
+        "name": "No hardcoded secrets",
+        "category": "manifest",
+        "rule": "No API_KEY, SECRET, PASSWORD in files",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "webpack_entry_point",
+        "name": "Webpack entry point set",
+        "category": "webpack",
+        "rule": "entry: './src/index.tsx'",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "webpack_module_federation",
+        "name": "Module Federation plugin",
+        "category": "webpack",
+        "rule": "ModuleFederationPlugin must be configured",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "webpack_output_path",
+        "name": "Output path set to dist/",
+        "category": "webpack",
+        "rule": "output.path must be dist/",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "deps_valid",
+        "name": "Dependencies are valid",
+        "category": "dependencies",
+        "rule": "All npm packages must be publishable",
+        "severity": "error",
+        "auto_fixable": false
+      },
+      {
+        "id": "typescript_strict",
+        "name": "TypeScript strict mode",
+        "category": "typescript",
+        "rule": "compilerOptions.strict: true",
+        "severity": "warning",
+        "auto_fixable": false
+      },
+      {
+        "id": "component_export",
+        "name": "Component properly exported",
+        "category": "component",
+        "rule": "src/index.tsx must export factory function",
+        "severity": "error",
+        "auto_fixable": false
+      }
+    ]
+  },
+  "build_checks": {
+    "phase": "post-build",
+    "description": "Validation checks after npm run build",
+    "checks": [
+      {
+        "id": "build_dist_exists",
+        "name": "dist/ folder created",
+        "category": "build_output",
+        "rule": "npm run build must create dist/ folder",
+        "severity": "error"
+      },
+      {
+        "id": "build_remote_entry",
+        "name": "remoteEntry.js exists",
+        "category": "build_output",
+        "rule": "dist/remoteEntry.js must exist and be > 1KB",
+        "severity": "error"
+      },
+      {
+        "id": "build_main_js",
+        "name": "main.js exists",
+        "category": "build_output",
+        "rule": "dist/main.js must exist and contain plugin code",
+        "severity": "error"
+      },
+      {
+        "id": "build_bundle_size",
+        "name": "Bundle size reasonable",
+        "category": "build_output",
+        "rule": "dist/ total < 2MB",
+        "severity": "error"
+      },
+      {
+        "id": "build_no_errors",
+        "name": "No build errors",
+        "category": "build_output",
+        "rule": "Build must complete without errors",
+        "severity": "error"
+      },
+      {
+        "id": "build_valid_js",
+        "name": "remoteEntry.js is valid JavaScript",
+        "category": "build_output",
+        "rule": "Must parse as valid JS (no syntax errors)",
+        "severity": "error"
+      }
+    ]
+  },
+  "runtime_checks": {
+    "phase": "runtime",
+    "description": "Validation checks at runtime after component loads",
+    "checks": [
+      {
+        "id": "runtime_component_renders",
+        "name": "Component renders without error",
+        "category": "runtime",
+        "rule": "React component must mount successfully",
+        "severity": "error"
+      },
+      {
+        "id": "runtime_no_console_errors",
+        "name": "No console errors",
+        "category": "runtime",
+        "rule": "Browser console should be clean (no red errors)",
+        "severity": "warning"
+      },
+      {
+        "id": "runtime_settings_load",
+        "name": "Settings load (if defined)",
+        "category": "runtime",
+        "rule": "Settings UI must render if settings_schema defined",
+        "severity": "warning"
+      },
+      {
+        "id": "runtime_no_memory_leaks",
+        "name": "No obvious memory leaks",
+        "category": "runtime",
+        "rule": "Event listeners cleaned up, no orphaned timers",
+        "severity": "warning"
+      }
+    ]
+  },
+  "package_checks": {
+    "phase": "packaging",
+    "description": "Validation checks before creating ZIP",
+    "checks": [
+      {
+        "id": "package_zip_name",
+        "name": "ZIP filename correct",
+        "category": "packaging",
+        "rule": "{slug}-{version}.zip format",
+        "severity": "error"
+      },
+      {
+        "id": "package_zip_structure",
+        "name": "ZIP structure correct",
+        "category": "packaging",
+        "rule": "Must contain {slug}/ folder with all files",
+        "severity": "error"
+      },
+      {
+        "id": "package_has_dist",
+        "name": "dist/ included in ZIP",
+        "category": "packaging",
+        "rule": "ZIP should contain dist/remoteEntry.js",
+        "severity": "warning"
+      },
+      {
+        "id": "package_no_node_modules",
+        "name": "node_modules not in ZIP",
+        "category": "packaging",
+        "rule": "Don't include node_modules/ (too large)",
+        "severity": "warning"
+      },
+      {
+        "id": "package_size",
+        "name": "ZIP size reasonable",
+        "category": "packaging",
+        "rule": "< 2MB recommended, < 5MB absolute limit",
+        "severity": "warning"
+      },
+      {
+        "id": "package_extractable",
+        "name": "ZIP extracts without errors",
+        "category": "packaging",
+        "rule": "unzip should work and show correct structure",
+        "severity": "error"
+      }
+    ]
+  },
+  "common_issues": {
+    "module_not_found": {
+      "error_message": "Module not found: Error: Can't resolve 'react'",
+      "causes": [
+        "React not in dependencies",
+        "Wrong import path",
+        "node_modules not installed"
+      ],
+      "fixes": [
+        "npm install react react-dom",
+        "Check import statement path",
+        "Run npm install again"
+      ]
+    },
+    "typescript_error": {
+      "error_message": "error TS2307: Cannot find module",
+      "causes": [
+        "Incorrect import path",
+        "Missing @types package",
+        "File doesn't exist"
+      ],
+      "fixes": [
+        "Verify file exists at path",
+        "Install type definitions: npm install --save-dev @types/...",
+        "Check tsconfig.json paths configuration"
+      ]
+    },
+    "webpack_build_failed": {
+      "error_message": "ERROR in ./src/index.tsx - Module parse failed",
+      "causes": [
+        "No loader for file type",
+        "Syntax error in file",
+        "Missing webpack plugin"
+      ],
+      "fixes": [
+        "Add ts-loader or babel-loader",
+        "Check for syntax errors",
+        "Verify ModuleFederationPlugin is configured"
+      ]
+    },
+    "remote_entry_missing": {
+      "error_message": "dist/remoteEntry.js NOT FOUND",
+      "causes": [
+        "Build failed silently",
+        "Wrong output path in webpack",
+        "ModuleFederationPlugin not configured"
+      ],
+      "fixes": [
+        "Run npm run build and check for errors",
+        "Check webpack.config.js output.path",
+        "Verify ModuleFederationPlugin filename: 'remoteEntry.js'"
+      ]
+    },
+    "version_mismatch": {
+      "error_message": "Installation failed: version mismatch",
+      "causes": [
+        "package.json and lifecycle_manager.py versions differ",
+        "Version not in semver format"
+      ],
+      "fixes": [
+        "Update both files to same version",
+        "Use X.Y.Z format only"
+      ]
+    },
+    "slug_mismatch": {
+      "error_message": "Plugin won't register: scope mismatch",
+      "causes": [
+        "plugin_slug != webpack scope",
+        "Kebab-case vs PascalCase confusion"
+      ],
+      "fixes": [
+        "Ensure all match: my-plugin (pkg) = MyPlugin (lifecycle + webpack)",
+        "Use case correctly: kebab for npm, PascalCase for others"
+      ]
+    },
+    "zip_too_large": {
+      "error_message": "ZIP file is 50MB - cannot upload",
+      "causes": [
+        "node_modules included",
+        "Large dependencies",
+        "Build artifacts included twice"
+      ],
+      "fixes": [
+        "rm -rf node_modules/ before zipping",
+        "Remove unused packages: npm prune",
+        "Exclude src/ if dist/ is included"
+      ]
+    },
+    "component_not_found": {
+      "error_message": "DashboardPage component not found",
+      "causes": [
+        "Component not exported from bundle",
+        "Name mismatch between lifecycle_manager and export"
+      ],
+      "fixes": [
+        "Export component: export { DashboardPage }",
+        "Verify lifecycle_manager component name matches export",
+        "Check case sensitivity (DashboardPage vs dashboardpage)"
+      ]
+    },
+    "no_default_page": {
+      "error_message": "BrainDrive doesn't know which page to display",
+      "causes": [
+        "No page has default: true"
+      ],
+      "fixes": [
+        "Add default: true to one page in pages array"
+      ]
+    },
+    "npm_install_fails": {
+      "error_message": "npm ERR! code ERESOLVE",
+      "causes": [
+        "Conflicting peer dependencies",
+        "React version mismatch"
+      ],
+      "fixes": [
+        "Use npm install --legacy-peer-deps",
+        "Update package.json dependencies to compatible versions",
+        "Check React/React-DOM versions"
+      ]
+    }
+  }
+}
